@@ -1,0 +1,42 @@
+services:
+  prod-site:
+    image: bayo124/my-devops-site:latest
+    container_name: prod-site
+    restart: always
+    # THIS LABEL TELLS AUTOHEAL TO WATCH THIS CONTAINER
+    labels:
+      - "autoheal=true"
+    networks:
+      - caddy_net
+
+  autoheal:
+    image: willfarrell/autoheal:latest
+    container_name: autoheal
+    restart: always
+    environment:
+      - AUTOHEAL_CONTAINER_LABEL=autoheal
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - caddy_net
+
+  caddy:
+    image: caddy:latest
+    container_name: caddy
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - /etc/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+    networks:
+      - caddy_net
+    depends_on:
+      - prod-site
+
+networks:
+  caddy_net:
+    driver: bridge
+
+volumes:
+  caddy_data:
