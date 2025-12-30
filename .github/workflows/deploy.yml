@@ -25,7 +25,7 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME }}/my-devops-site:latest
 
   deploy:
-    needs: build-and-push # Only run if the build succeeds
+    needs: build-and-push
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to EC2
@@ -35,16 +35,20 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            # Pull the new image
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/my-devops-site:latest
+            # Navigate to the project folder
+            cd ~/Project-1
             
-            # Stop and remove the old container (if it exists)
+            # Pull the latest changes from GitHub (gets your new docker-compose.yml)
+            git pull origin main
+            
+            # Stop and remove any old "standalone" container that might be blocking port 80
             sudo docker stop prod-site || true
             sudo docker rm prod-site || true
             
-            # Run the new container with the restart policy
-            sudo docker run -d \
-              --name prod-site \
-              -p 80:80 \
-              --restart always \
-              ${{ secrets.DOCKER_USERNAME }}/my-devops-site:latest
+            # Use Docker Compose to pull new images and restart the whole stack
+            # --remove-orphans cleans up old containers from previous setups
+            sudo docker compose pull
+            sudo docker compose up -d --remove-orphans
+            
+            # Clean up old images to save disk space on AWS
+            sudo docker image prune -f
