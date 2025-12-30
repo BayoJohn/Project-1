@@ -1,9 +1,10 @@
 services:
   prod-site:
     image: bayo124/my-devops-site:latest
-    container_name: prod-site
+    # container_name: prod-site  <-- REMOVE OR COMMENT THIS OUT
     restart: always
-    # THIS LABEL TELLS AUTOHEAL TO WATCH THIS CONTAINER
+    deploy:
+      replicas: 3
     labels:
       - "autoheal=true"
     networks:
@@ -26,6 +27,7 @@ services:
     restart: always
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - /etc/caddy/Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
