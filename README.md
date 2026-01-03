@@ -11,7 +11,7 @@ The system is designed to:
 
 It simulates how real-world cloud-native applications are deployed, monitored, and maintained in production environments.
 
----
+
 
 Architecture Overview
 The infrastructure consists of multiple containerized services orchestrated using Docker Compose and deployed on an AWS EC2 instance.
@@ -24,12 +24,7 @@ Architecture Highlights
 - Self-healing mechanism for unhealthy containers
 
 > Architecture Diagram 
-> *(Add your diagram image here when available)*
-
-
-
-
----
+<img width="1227" height="792" alt="diagram-export-1-4-2026-12_14_16-AM" src="https://github.com/user-attachments/assets/4c833e8f-1a48-417b-80b5-b70d8641f5de" />
 
 ## 🧰 Tech Stack
 - **Cloud Provider:** AWS (EC2)
@@ -39,7 +34,7 @@ Architecture Highlights
 - **Monitoring:** Prometheus, Grafana
 - **Registry:** Docker Hub
 
----
+
 
 ## 🚀 Key Features
 - **High Availability:** Multiple replicas prevent downtime from single container failure
@@ -49,7 +44,7 @@ Architecture Highlights
 - **SSL/TLS Automation:** Secure HTTPS traffic using automated certificates
 - **Monitoring & Observability:** Real-time system and container metrics
 
----
+
 
 ## 🔁 CI/CD Pipeline (GitHub Actions)
 The CI/CD pipeline is triggered on every push to the `main` branch.
@@ -64,7 +59,7 @@ The CI/CD pipeline is triggered on every push to the `main` branch.
 
 This approach reduces deployment time, minimizes human error, and ensures consistency across deployments.
 
----
+
 
 ## ❤️ Self-Healing Mechanism
 The system uses:
@@ -77,7 +72,7 @@ If a container becomes unhealthy:
 
 This ensures **high uptime (~99.9%)** and improved reliability.
 
----
+
 
 ## 📊 Monitoring & Observability
 A full monitoring stack is deployed using **Prometheus** and **Grafana**.
@@ -92,14 +87,14 @@ A full monitoring stack is deployed using **Prometheus** and **Grafana**.
 ### Visualization
 Grafana dashboards provide real-time visibility into system performance and resource usage.
 
-📍 **Grafana Access**
+Grafana Access
 
 
----
 
-## 🛠 Setup & Deployment Guide
 
-### Prerequisites
+Setup & Deployment Guide
+
+Prerequisites
 - AWS EC2 instance (Ubuntu recommended)
 - Docker & Docker Compose installed
 - Docker Hub account
@@ -107,7 +102,7 @@ Grafana dashboards provide real-time visibility into system performance and reso
 
 ---
 
-### Clone the Repository
+Clone the Repository
 ```bash
 git clone https://github.com/your-username/your-repo-name.git
 cd your-repo-name
