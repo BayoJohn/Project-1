@@ -26,8 +26,8 @@ Architecture Highlights
 > Architecture Diagram 
 <img width="1227" height="792" alt="diagram-export-1-4-2026-12_14_16-AM" src="https://github.com/user-attachments/assets/4c833e8f-1a48-417b-80b5-b70d8641f5de" />
 
-## 🧰 Tech Stack
-- **Cloud Provider:** AWS (EC2)
+  Tech Stack
+- Cloud Provider:** AWS (EC2)
 - **Containerization:** Docker, Docker Compose
 - **Reverse Proxy / Load Balancer:** Nginx / Caddy
 - **CI/CD:** GitHub Actions
@@ -36,35 +36,33 @@ Architecture Highlights
 
 
 
-## 🚀 Key Features
-- **High Availability:** Multiple replicas prevent downtime from single container failure
-- **CI/CD Automation:** Fully automated build, push, and deployment pipeline
-- **Self-Healing:** Containers are automatically restarted when unhealthy
-- **Load Balancing:** Traffic distributed evenly across replicas
-- **SSL/TLS Automation:** Secure HTTPS traffic using automated certificates
-- **Monitoring & Observability:** Real-time system and container metrics
+   Key Features
+- High Availability:** Multiple replicas prevent downtime from single container failure
+- CI/CD Automation:** Fully automated build, push, and deployment pipeline
+- Self-Healing:** Containers are automatically restarted when unhealthy
+- Load Balancing:** Traffic distributed evenly across replicas
+- SSL/TLS Automation:** Secure HTTPS traffic using automated certificates
+- Monitoring & Observability:** Real-time system and container metrics
 
 
 
-## 🔁 CI/CD Pipeline (GitHub Actions)
+CI/CD Pipeline (GitHub Actions)
 The CI/CD pipeline is triggered on every push to the `main` branch.
-
-### Pipeline Workflow
+Pipeline Workflow
 1. Build Docker images
 2. Push images to Docker Hub
 3. Deploy updated containers to AWS EC2
 4. Restart services with zero manual intervention
 
-📁 **Workflow location:**  
+Workflow location:
 
 This approach reduces deployment time, minimizes human error, and ensures consistency across deployments.
 
 
-
-## ❤️ Self-Healing Mechanism
+Self-Healing Mechanism
 The system uses:
-- **Docker health checks**
-- **Autoheal container**
+- Docker health checks
+- Autoheal container
 
 If a container becomes unhealthy:
 - It is automatically detected
@@ -73,18 +71,17 @@ If a container becomes unhealthy:
 This ensures **high uptime (~99.9%)** and improved reliability.
 
 
+Monitoring & Observability
+A full monitoring stack is deployed using Prometheus and Grafana.
 
-## 📊 Monitoring & Observability
-A full monitoring stack is deployed using **Prometheus** and **Grafana**.
-
-### Metrics Collected
+Metrics Collected
 - CPU usage
 - Memory usage
 - Disk usage
 - Network traffic
 - Container health status
 
-### Visualization
+Visualization
 Grafana dashboards provide real-time visibility into system performance and resource usage.
 
 Grafana Access
