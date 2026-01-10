@@ -1,7 +1,11 @@
+version: "3.9"
+
 services:
+  # --------------------
+  # Your Application
+  # --------------------
   prod-site:
     image: bayo124/my-devops-site:latest
-    # container_name: prod-site  <-- REMOVE OR COMMENT THIS OUT
     restart: always
     deploy:
       replicas: 3
@@ -10,6 +14,9 @@ services:
     networks:
       - caddy_net
 
+  # --------------------
+  # Autoheal
+  # --------------------
   autoheal:
     image: willfarrell/autoheal:latest
     container_name: autoheal
@@ -21,6 +28,9 @@ services:
     networks:
       - caddy_net
 
+  # --------------------
+  # Caddy Reverse Proxy
+  # --------------------
   caddy:
     image: caddy:latest
     container_name: caddy
@@ -35,32 +45,53 @@ services:
       - caddy_net
     depends_on:
       - prod-site
+      - grafana
 
+  # --------------------
+  # Prometheus
+  # --------------------
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
     networks:
       - caddy_net
 
+  # --------------------
+  # Grafana
+  # --------------------
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
     ports:
-      - "3000:3000"
+      - "3000:3000"   # Optional if you want direct access
+    volumes:
+      - grafana_data:/var/lib/grafana
     networks:
       - caddy_net
 
+  # --------------------
+  # Node Exporter
+  # --------------------
   node-exporter:
     image: prom/node-exporter:latest
     container_name: node-exporter
     networks:
       - caddy_net
 
+# --------------------
+# Networks
+# --------------------
 networks:
   caddy_net:
     driver: bridge
 
+# --------------------
+# Volumes
+# --------------------
 volumes:
   caddy_data:
+  grafana_data:
+  prometheus_data:
